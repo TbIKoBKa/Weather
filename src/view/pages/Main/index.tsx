@@ -1,22 +1,40 @@
 // Core
 import React, { FC } from 'react';
 
+// Containers
+import { Header } from '../../containers';
+
 // Components
-import { Current } from '../../components';
+import { Current, Forecast } from '../../components';
 
 // Elements
-//import { Spinner } from '../../elements';
+import { Spinner } from '../../elements';
 
 // Styles
-import { Container, Header } from './styles';
+import { Container, StyledMain } from './styles';
+
+// Instruments
+import { useWeather } from '../../../bus/weather';
 
 const Main: FC = () => {
+    const { data } = useWeather();
+    const today = data[ 0 ];
+
     return (
-        <Container>
-            <Header>Kiev</Header>
-            {/* <Spinner /> */}
-            <Current />
-        </Container>
+        <StyledMain>
+            {
+                data
+                    ? (
+                        <Container>
+                            <Header day = { today }/>
+                            <Current />
+                            <Forecast />
+                        </Container>
+                    )
+                    : <Spinner />
+
+            }
+        </StyledMain>
     );
 };
 
