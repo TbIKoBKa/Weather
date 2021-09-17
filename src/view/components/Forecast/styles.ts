@@ -1,10 +1,14 @@
 // Core
 import React, { DetailedHTMLProps } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-type WeatherType = 'sunny' | 'cloudy' | 'rainy'
+// Types
+import { WeatherType } from '../../../bus/weather/types';
 
+// Tools
+import { getWeatherTypeIcon } from '../../../tools/helpers';
 interface DayProps extends DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement> {
+    selected?: boolean
     weatherType: WeatherType
 }
 
@@ -20,12 +24,14 @@ export const Day = styled.li<DayProps>`
     height: 204px;
     background-color: #c486bb;
     color: #fff;
-    padding: 35px 0;
+    padding-top: 35px;
     text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
+    ${({ selected }) => selected && css`
+        background-color: #d9a9ce;
+    `}
     &:hover {
         background-color: #d9a9ce;
         cursor: pointer;
@@ -35,9 +41,9 @@ export const Day = styled.li<DayProps>`
         top: 86px;
         content: "";
         display: block;
+        width: 100%;
         height: 37px;
+        background: url(${({ weatherType }) => getWeatherTypeIcon(weatherType)}) center no-repeat;
         background-size: contain;
-        background-repeat: no-repeat;
-        width: 62px;
     }
 `;

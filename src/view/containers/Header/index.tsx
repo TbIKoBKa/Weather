@@ -1,28 +1,26 @@
 // Core
 import React, { FC } from 'react';
 
-// Elements
-import { Label } from '../../elements';
-
 // Styles
-import { StyledHeader, Logo, CurrentDate, CurrentDayOfWeek } from './styles';
+import { StyledHeader, Logo, CurrentDate, CurrentDayOfWeek, CurrentDayMonth } from './styles';
 
 // Types
 import { Day } from '../../../bus/weather/types';
 
 // Tools
-import { getDayOfWeek, getMonthOfYear } from '../../../tools/helpers';
+import { getDayOfWeek, getMonthOfYear, getWeatherTypeIcon } from '../../../tools/helpers';
 
 type Proptypes = {
     day: Day
 }
 
-import icon from '../../../assets/images/weather-icon-cloudy.png';
-
 export const Header: FC<Proptypes> = ({ day }) => {
     if (!day) {
         return null;
     }
+
+    let icon = getWeatherTypeIcon(day.type);
+
 
     return (
         <StyledHeader>
@@ -40,11 +38,11 @@ export const Header: FC<Proptypes> = ({ day }) => {
                     }}>
                     {getDayOfWeek(day.day)}
                 </CurrentDayOfWeek>
-                <Label
+                <CurrentDayMonth
                     fontSize = { 14 }
                     fontWeight = { 200 }>
                     {`${new Date(day.day).getDate()} ${getMonthOfYear(day.day)}`}
-                </Label>
+                </CurrentDayMonth>
             </CurrentDate>
         </StyledHeader>
     );

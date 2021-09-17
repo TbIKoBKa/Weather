@@ -18,7 +18,7 @@ interface LabelProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLParagrap
 
 export const Label = styled.p<LabelProps>`
     position: relative;
-    ${({ fontSize = 24, fontWeight = 400, afterIcon, margin }) => (fontSize || fontWeight || afterIcon) && css`
+    ${({ fontSize = 24, fontWeight = 400, afterIcon, margin = { top: 'auto', left: 'auto', right: 'auto', bottom: 'auto' }}) => (fontSize || fontWeight || afterIcon) && css`
         font-size: ${fontSize}px;
         font-weight: ${fontWeight};
         ${afterIcon && css`
@@ -42,19 +42,19 @@ export const Label = styled.p<LabelProps>`
                 `}
             }
         `}
-        ${margin && css`
-            ${margin.top && css`
-                margin-top: ${margin.top}px;
-            `}
-            ${margin.right && css`
-                margin-bottom: ${margin.right}px;
-            `}
-            ${margin.bottom && css`
-                margin-bottom: ${margin.bottom}px;
-            `}
-            ${margin.left && css`
-                margin-left: ${margin.left}px;
-            `}
-        `}
+        ${(fontSize || fontWeight || afterIcon || margin) && {
+        fontSize:       `${fontSize}px`,
+        fontWeight,
+        marginTop:      `${margin.top}px`,
+        marginBottom:   `${margin.bottom}px`,
+        marginRight:    `${margin.right}px`,
+        marginLeft:     `${margin.left}px`,
+        [ '&::after' ]: {
+            content:      '',
+            display:      'inline-block',
+            position:     'absolute',
+            borderRadius: '50%',
+        },
+    }}
     `}
 `;

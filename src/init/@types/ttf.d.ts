@@ -1,4 +1,4 @@
-declare module '*.tts' {
+declare module '*.ttf' {
     const File: any;
     export = File
 }

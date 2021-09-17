@@ -1,4 +1,4 @@
-// Core
+export type WeatherType = 'sunny' | 'cloudy' | 'rainy'
 
 export type Day = {
     id: string
@@ -6,7 +6,7 @@ export type Day = {
     humidity: number
     day: number
     temperature: number
-    type: string
+    type: WeatherType
 }
 
 export type Days = Day[]

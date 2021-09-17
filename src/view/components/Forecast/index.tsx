@@ -1,5 +1,5 @@
 // Core
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { getDayOfWeek } from '../../../tools/helpers';
 import { useSelector } from '../../../tools/hooks';
 
@@ -11,8 +11,13 @@ import { ListDays, Day } from './styles';
 
 export const Forecast: FC = () => {
     const data = useSelector(({ weather }) => weather);
-
     const filteredData = data.slice(0, 7);
+    const [ selected, setSelected ] = useState('0');
+
+    const onClickHandle = (value: string) => {
+        console.log(value);
+        setSelected(value);
+    };
 
     return (
         <ListDays>
@@ -20,10 +25,15 @@ export const Forecast: FC = () => {
                 filteredData.map((item) => (
                     <Day
                         key = { item.id }
-                        weatherType = 'cloudy'>
+                        selected = { item.id === selected }
+                        weatherType = { item.type }
+                        onClick = { () => onClickHandle(item.id) }>
                         <Label
                             fontSize = { 18 }
-                            fontWeight = { 400 }>
+                            fontWeight = { 400 }
+                            margin = {{
+                                bottom: 90,
+                            }}>
                             {getDayOfWeek(item.day)}
                         </Label>
                         <Label

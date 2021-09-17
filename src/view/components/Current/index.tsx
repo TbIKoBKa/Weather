@@ -6,7 +6,7 @@ import { useSelector } from '../../../tools/hooks';
 import { Label } from '../../elements';
 
 // Styles
-import { StyledCurrent } from './styles';
+import { StyledCurrent, MetaProp } from './styles';
 
 export const Current: FC = () => {
     const data = useSelector(({ weather }) => weather)[ 0 ];
@@ -20,8 +20,17 @@ export const Current: FC = () => {
             <Label
                 afterIcon = 'big'
                 fontSize = { 350 }
-                fontWeight = { 200 }>
+                fontWeight = { 200 }
+                margin = {{
+                    bottom: 100,
+                }}>
                 {data.temperature}
+            </Label>
+            <Label
+                fontSize = { 19 }
+                fontWeight = { 200 }>
+                <MetaProp type = 'rainy'>%{data.rain_probability}</MetaProp>
+                <MetaProp type = 'humidity'>%{data.humidity}</MetaProp>
             </Label>
         </StyledCurrent>
     );
