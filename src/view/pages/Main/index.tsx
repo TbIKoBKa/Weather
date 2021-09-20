@@ -35,8 +35,8 @@ const Main: FC = () => {
     const onFilterHandle: filterContract = (fields) => {
         const newFilteredData = data.filter((day) => {
             if ((fields.weatherType && day.type !== fields.weatherType)
-                || (fields.minTemp && day.temperature <= Number(fields.minTemp))
-                || (fields.maxTemp && day.temperature >= Number(fields.maxTemp))
+                || (fields.minTemp && day.temperature < Number(fields.minTemp))
+                || (fields.maxTemp && day.temperature > Number(fields.maxTemp))
             ) {
                 return false;
             }
@@ -53,7 +53,7 @@ const Main: FC = () => {
     return (
         <StyledMain>
             {
-                data
+                data.length
                     ? (
                         <Container>
                             <Header day = { activeDay }/>

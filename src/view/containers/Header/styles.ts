@@ -7,7 +7,7 @@ import { Label } from '../../elements';
 export const StyledHeader = styled.header`
     display: flex;
     justify-content: center;
-    padding: 60px 0 83px;
+    margin-bottom: 83px;
 `;
 
 export const Logo = styled.img`

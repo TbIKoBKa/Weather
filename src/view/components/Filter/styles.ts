@@ -72,7 +72,7 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-    background-color: #c584bc;
+    background-color: #3792ff; //#c584bc
     border: none;
     padding: 10px 15px;
     border-radius: 8px;
@@ -83,13 +83,13 @@ export const Button = styled.button`
     color: #fff;
     &:hover {
         cursor: pointer;
-        background-color: #966590;
+        background-color: #1780ff; //#966590
     }
     &:disabled {
         opacity: .3;
         &:hover {
             cursor: auto;
-            background-color: #c584bc;
+            background-color: #4a9cff; //#c584bc
         }
     }
 `;
