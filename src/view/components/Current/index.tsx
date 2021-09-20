@@ -1,6 +1,6 @@
 // Core
 import React, { FC } from 'react';
-import { useSelector } from '../../../tools/hooks';
+import { Day } from '../../../bus/weather/types';
 
 // Components
 import { Label } from '../../elements';
@@ -8,10 +8,12 @@ import { Label } from '../../elements';
 // Styles
 import { StyledCurrent, MetaProp } from './styles';
 
-export const Current: FC = () => {
-    const data = useSelector(({ weather }) => weather)[ 0 ];
+type PropTypes = {
+    day: Day | undefined,
+}
 
-    if (!data) {
+export const Current: FC<PropTypes> = ({ day }) => {
+    if (!day) {
         return null;
     }
 
@@ -24,13 +26,13 @@ export const Current: FC = () => {
                 margin = {{
                     bottom: 100,
                 }}>
-                {data.temperature}
+                {day.temperature}
             </Label>
             <Label
                 fontSize = { 19 }
                 fontWeight = { 200 }>
-                <MetaProp type = 'rainy'>%{data.rain_probability}</MetaProp>
-                <MetaProp type = 'humidity'>%{data.humidity}</MetaProp>
+                <MetaProp type = 'rainy'>%{day.rain_probability}</MetaProp>
+                <MetaProp type = 'humidity'>%{day.humidity}</MetaProp>
             </Label>
         </StyledCurrent>
     );

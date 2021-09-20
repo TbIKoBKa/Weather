@@ -11,7 +11,7 @@ import { Day } from '../../../bus/weather/types';
 import { getDayOfWeek, getMonthOfYear, getWeatherTypeIcon } from '../../../tools/helpers';
 
 type Proptypes = {
-    day: Day
+    day: Day | undefined
 }
 
 export const Header: FC<Proptypes> = ({ day }) => {
@@ -19,14 +19,11 @@ export const Header: FC<Proptypes> = ({ day }) => {
         return null;
     }
 
-    let icon = getWeatherTypeIcon(day.type);
-
-
     return (
         <StyledHeader>
             <Logo
                 alt = 'weather logo'
-                src = { icon }
+                src = { getWeatherTypeIcon(day.type) }
             />
             <CurrentDate>
                 <CurrentDayOfWeek

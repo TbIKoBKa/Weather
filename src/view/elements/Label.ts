@@ -1,5 +1,5 @@
 // Core
-import { DetailedHTMLProps } from 'react';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 
 type AfterIconSize = 'small' | 'big'
@@ -9,7 +9,7 @@ type marginType = {
     bottom?: number
     left?: number
 }
-interface LabelProps extends DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {
+interface LabelProps extends DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {
     fontSize?: number
     fontWeight?: number
     afterIcon?: AfterIconSize
