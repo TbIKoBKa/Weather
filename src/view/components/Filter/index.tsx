@@ -1,5 +1,5 @@
 // Core
-import React, { FC, ChangeEvent, useState } from 'react';
+import React, { FC, ChangeEvent } from 'react';
 
 // Styles
 import { Filter as StyledFilter, CheckBox, StyledLabel, Input, Button } from './styles';
@@ -8,30 +8,39 @@ import { Filter as StyledFilter, CheckBox, StyledLabel, Input, Button } from './
 import { filterContract } from '../../pages/Main/types';
 import { WeatherType } from '../../../bus/weather/types';
 
+// Tools
+import { useFilter } from '../../../tools/hooks';
+
 type PropTypes = {
     onFilter: filterContract
 }
 
 export const Filter: FC<PropTypes> = ({ onFilter }) => {
-    const [ selectedCheckBox, setSelectedCheckBox ] = useState<WeatherType | null>(null);
-    const [ minTemp, setMinTemp ] = useState<string>('');
-    const [ maxTemp, setMaxTemp ] = useState<string>('');
-    const [ filtered, setFiltered ] = useState<boolean>(false);
+    const {
+        filtered,
+        selectedWeather,
+        maxTemp,
+        minTemp,
+        setFiltered,
+        setSelectedWeather,
+        setMaxTemp,
+        setMinTemp,
+    } = useFilter();
 
     const onCheckBoxClickHandle = (type: WeatherType) => {
         if (!filtered) {
-            setSelectedCheckBox(type);
+            setSelectedWeather(type);
         }
     };
 
     const onButtonClickHandle = () => {
         if (filtered) {
-            setSelectedCheckBox(null);
+            setSelectedWeather(null);
             setMinTemp('');
             setMaxTemp('');
             onFilter({ weatherType: null, minTemp: '', maxTemp: '' });
         } else {
-            onFilter({ weatherType: selectedCheckBox, minTemp, maxTemp });
+            onFilter({ weatherType: selectedWeather, minTemp, maxTemp });
         }
         setFiltered((prevState) => !prevState);
     };
@@ -44,13 +53,15 @@ export const Filter: FC<PropTypes> = ({ onFilter }) => {
         <StyledFilter>
             <CheckBox
                 disabled = { filtered }
-                selected = { selectedCheckBox === 'cloudy' }
-                onClick = { () => onCheckBoxClickHandle('cloudy') }>Облачно
+                selected = { selectedWeather === 'cloudy' }
+                onClick = { () => onCheckBoxClickHandle('cloudy') }>
+                Облачно
             </CheckBox>
             <CheckBox
                 disabled = { filtered }
-                selected = { selectedCheckBox === 'sunny' }
-                onClick = { () => onCheckBoxClickHandle('sunny') }>Солнечно
+                selected = { selectedWeather === 'sunny' }
+                onClick = { () => onCheckBoxClickHandle('sunny') }>
+                Солнечно
             </CheckBox>
             <StyledLabel>
                 Минимальная температура
@@ -72,7 +83,7 @@ export const Filter: FC<PropTypes> = ({ onFilter }) => {
             </StyledLabel>
             <Button
                 children = { filtered ? 'Сбросить' : 'Отфильтровать' }
-                disabled = { selectedCheckBox === null && minTemp === '' && maxTemp === '' }
+                disabled = { selectedWeather === null && minTemp === '' && maxTemp === '' }
                 onClick = { onButtonClickHandle }
             />
         </StyledFilter>

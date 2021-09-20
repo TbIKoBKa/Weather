@@ -4,56 +4,47 @@ import styled, { css } from 'styled-components';
 
 type AfterIconSize = 'small' | 'big'
 type marginType = {
-    top?: number
-    right?: number
-    bottom?: number
-    left?: number
+    top?: number | 'auto'
+    right?: number | 'auto'
+    bottom?: number | 'auto'
+    left?: number | 'auto'
 }
+type textTransformType = 'uppercase' | 'lowercase' | 'none'
+
 interface LabelProps extends DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement> {
     fontSize?: number
     fontWeight?: number
     afterIcon?: AfterIconSize
     margin?: marginType
+    textTransform?: textTransformType
+    lineHeight?: 'normal' | number
 }
 
 export const Label = styled.p<LabelProps>`
     position: relative;
-    ${({ fontSize = 24, fontWeight = 400, afterIcon, margin = { top: 'auto', left: 'auto', right: 'auto', bottom: 'auto' }}) => (fontSize || fontWeight || afterIcon) && css`
-        font-size: ${fontSize}px;
-        font-weight: ${fontWeight};
-        ${afterIcon && css`
-            &::after {
-                content: "";
-                display: inline-block;
-                position: absolute;
-                border-radius: 50%;
-                ${ afterIcon === 'big' ? css`
-                    top: 53px;
-                    right: -70px;
-                    width: 37px;
-                    height: 41px;
-                    border: 5px solid #fff;
-                ` : css`
-                    top: 2px;
-                    right: -14px;
-                    width: 5px;
-                    height: 6px;
-                    border: 1px solid #fff;
-                `}
-            }
-        `}
-        ${(fontSize || fontWeight || afterIcon || margin) && {
-        fontSize:       `${fontSize}px`,
+    ${({ fontSize = 24, fontWeight = 400, afterIcon, margin = { top: 'auto', left: 'auto', right: 'auto', bottom: 'auto' }, textTransform = 'none', lineHeight = 'normal' }) => css`
+        
+        ${{
+        lineHeight:   `${lineHeight === 'normal' ? 'normal' : lineHeight}`,
+        fontSize:     `${fontSize}px`,
         fontWeight,
-        marginTop:      `${margin.top}px`,
-        marginBottom:   `${margin.bottom}px`,
-        marginRight:    `${margin.right}px`,
-        marginLeft:     `${margin.left}px`,
+        marginTop:    `${margin.top === 'auto' || !margin.top ? 'auto' : `${margin.top}px`}`,
+        marginBottom: `${margin.bottom === 'auto' || !margin.bottom ? 'auto' : `${margin.bottom}px`}`,
+        marginRight:  `${margin.right === 'auto' || !margin.right ? 'auto' : `${margin.right}px`}`,
+        marginLeft:   `${margin.left === 'auto' || !margin.left ? 'auto' : `${margin.left}px`}`,
+        textTransform,
+    }}
+        ${afterIcon && {
         [ '&::after' ]: {
-            content:      '',
+            content:      '\'\'',
             display:      'inline-block',
             position:     'absolute',
             borderRadius: '50%',
+            top:          `${afterIcon === 'big' ? '53px' : '7px'}`,
+            right:        `${afterIcon === 'big' ? '-70px' : '-12px'}`,
+            width:        `${afterIcon === 'big' ? '37px' : '5px'}`,
+            height:       `${afterIcon === 'big' ? '41px' : '6px'}`,
+            border:       `${afterIcon === 'big' ? '5px solid #fff' : '1px solid #fff'}`,
         },
     }}
     `}

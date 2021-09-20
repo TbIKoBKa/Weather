@@ -1,13 +1,14 @@
 // Core
-import styled, {  } from 'styled-components';
+import styled from 'styled-components';
 
 // Images
 import background from '../../../assets/images/bg.png';
 
 export const StyledMain = styled.main`
     min-height: 100vh;
-    //background: radial-gradient(circle, #79bfff 40%, #3788ff 100%);
-    background-image: url(${background});
+    background: radial-gradient(circle, #79bfff 40%, #3788ff 100%);
+    //background-image: url(${background});
+    padding: 60px 20px 40px;
 `;
 
 export const Container = styled.div`

@@ -15,26 +15,35 @@ interface DayProps extends DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElemen
 export const ListDays = styled.ul`
     list-style: none;
     display: flex;
-    margin-bottom: 40px;
 `;
 
 export const Day = styled.li<DayProps>`
     position: relative;
     width: 130px;
     height: 204px;
-    background-color: #c486bb;
+    background-color: #4a9cff; // #c486bb
     color: #fff;
     padding-top: 35px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform .2s ease-in-out;
     ${({ selected }) => selected && css`
-        background-color: #d9a9ce;
+        background-color: #64aaff; // #d9a9ce
     `}
     &:hover {
-        background-color: #d9a9ce;
+        background-color: #64aaff; // #d9a9ce
         cursor: pointer;
+        transform: scale(1.1);
+        box-shadow: 0 0 5px 3px #59a4ff;
+        z-index: 100;
+    }
+    &:first-child {
+        border-radius: 6px 0 0 6px;
+    }
+    &:last-child {
+        border-radius: 0 6px 6px 0;
     }
     &::before {
         position: absolute;

@@ -23,6 +23,7 @@ export const Current: FC<PropTypes> = ({ day }) => {
                 afterIcon = 'big'
                 fontSize = { 350 }
                 fontWeight = { 200 }
+                lineHeight = { 1 }
                 margin = {{
                     bottom: 100,
                 }}>
@@ -31,8 +32,8 @@ export const Current: FC<PropTypes> = ({ day }) => {
             <Label
                 fontSize = { 19 }
                 fontWeight = { 200 }>
-                <MetaProp type = 'rainy'>%{day.rain_probability}</MetaProp>
-                <MetaProp type = 'humidity'>%{day.humidity}</MetaProp>
+                <MetaProp type = 'rainy'>%{day?.rain_probability}</MetaProp>
+                <MetaProp type = 'humidity'>%{day?.humidity}</MetaProp>
             </Label>
         </StyledCurrent>
     );
